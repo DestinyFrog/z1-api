@@ -7,6 +7,8 @@ for _, atom in ipairs(atoms) do
     local x = atom["x"]
     local y = atom["y"]
 
+	if atom["symbol"] == "X" then goto continue end
+
     if x > max_x then max_x = x end
     if y > max_y then max_y = y end
     if x < min_x then min_x = x end
