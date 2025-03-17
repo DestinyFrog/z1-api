@@ -212,4 +212,4 @@ end
 calc_atoms_position(1)
 
 local export_type = arg[1]
-require("plugins/" .. export_type .. ".lua")
+require("plugins/" .. export_type)
