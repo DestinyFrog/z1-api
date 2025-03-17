@@ -15,8 +15,6 @@ for idx, atom in ipairs(atoms) do
     local x = atom["x"]
     local y = atom["y"]
 
-	if atom["symbol"] == "X" then goto continue end
-
 	if atom["symbol"] == "H" and atom["charge"] == 0 then
         for _, lig in ipairs(ligations) do
             if lig["atoms"][2] == idx and atoms[ lig["atoms"][1] ]["symbol"] == "C" then
