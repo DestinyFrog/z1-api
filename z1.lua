@@ -29,7 +29,7 @@ function handle_err(err, status_code)
 end
 
 local uid = arg[2]
-local db = sqlite3.open("a.sqlite3")
+local db = sqlite3.open("z1.sqlite3")
 local stmt = assert( db:prepare("SELECT z1 FROM molecula WHERE uid = ?") )
 stmt:bind_values(uid)
 stmt:step()

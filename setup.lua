@@ -1,9 +1,12 @@
 local sqlite3 = require "lsqlite3"
 local uuid = require "uuid"
 
+-- lsqlite3
+-- uuid
+
 uuid.set_rng(uuid.rng.urandom())
 
-local db = sqlite3.open("a.sqlite3")
+local db = sqlite3.open("z1.sqlite3")
 
 db:exec[[
 	CREATE TABLE molecula (
@@ -48,4 +51,6 @@ for k, name in ipairs(names) do
 
 	stmt:step()
 	stmt:reset()
+
+	print("INSERT: "..name)
 end

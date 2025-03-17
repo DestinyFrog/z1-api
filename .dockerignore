@@ -1,0 +1,5 @@
+.gitignore
+conf.sh
+z1.sqlite3
+.venv
+.git
