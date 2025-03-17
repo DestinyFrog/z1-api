@@ -28,21 +28,21 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Lua
-RUN wget http://www.lua.org/ftp/lua-5.1.5.tar.gz \
-    && tar zxf lua-5.1.5.tar.gz \
-    && cd lua-5.1.5 \
+RUN wget http://www.lua.org/ftp/lua-5.4.7.tar.gz \
+    && tar zxf lua-5.4.7.tar.gz \
+    && cd lua-5.4.7 \
     && make linux test \
     && make install \
-    && cd .. && rm -rf lua-5.1.5*
+    && cd .. && rm -rf lua-5.4.7*
 
 # Install LuaRocks
-RUN wget https://luarocks.github.io/luarocks/releases/luarocks-2.2.0.tar.gz \
-    && tar zxf luarocks-2.2.0.tar.gz \
-    && cd luarocks-2.2.0 \
+RUN wget https://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz \
+    && tar zxf luarocks-3.11.1.tar.gz \
+    && cd luarocks-3.11.1 \
     && ./configure --with-lua-include=/usr/local/include \
     && make build \
     && make install \
-    && cd .. && rm -rf luarocks-2.2.0*
+    && cd .. && rm -rf luarocks-3.11.1*
 
 # Setup lua
 RUN luarocks install lsqlite3 && \
