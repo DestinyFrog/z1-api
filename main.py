@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request, jsonify
+from flask import Flask, make_response, request, jsonify, send_from_directory
 from flask_cors import CORS
 import subprocess
 import sqlite3
@@ -19,7 +19,11 @@ def build_molecula(obj):
         "name": name
     }
 
-@app.route("/", methods=["GET"])
+@app.route("/<path:path>")
+def serve_pages(path:str):
+    return send_from_directory('./dist', path)
+
+@app.route("/api/", methods=["GET"])
 def get_all_molecula():
     conn = get_conn()
     cursor = conn.cursor()
@@ -34,7 +38,7 @@ def get_all_molecula():
     conn.close()
     return jsonify(moleculas)
 
-@app.route("/<uuid:uid>", methods=["GET"])
+@app.route("/api/<uuid:uid>", methods=["GET"])
 def get_one_molecula_by_uid(uid):
     conn = get_conn()
     cursor = conn.cursor()
@@ -47,7 +51,7 @@ def get_one_molecula_by_uid(uid):
     conn.close()
     return jsonify(molecula)
 
-@app.route("/search/<string:term>", methods=["GET"])
+@app.route("/api/search/<string:term>", methods=["GET"])
 def search_one_molecula(term:str):
     conn = get_conn()
     cursor = conn.cursor()
@@ -62,10 +66,10 @@ def search_one_molecula(term:str):
     conn.close()
     return jsonify(moleculas)
 
-@app.route("/<uuid:uid>/svg", methods=["GET"])
+@app.route("/api/<uuid:uid>/svg", methods=["GET"])
 def get_svg(uid):
     mode = request.args.get("mode") or "standard"
-    result = subprocess.run(["lua", "z1.lua", mode, str(uid)], capture_output=True, text=True)
+    result = subprocess.run(["lua", "z1/z1.lua", mode, str(uid)], capture_output=True, text=True)
 
     return_code = result.returncode
 
@@ -80,7 +84,7 @@ def get_svg(uid):
     resp = make_response(content)
     return resp
 
-@app.route("/add", methods=["POST"])
+@app.route("/api/add", methods=["POST"])
 def create_one():
     json = request.get_json()
 
@@ -96,7 +100,7 @@ def create_one():
     conn.close()
     return jsonify( { "uid": uid } )
 
-@app.route("/edit/<uuid:uid>", methods=["PUT"])
+@app.route("/api/edit/<uuid:uid>", methods=["PUT"])
 def edit_one(uid):
     json = request.get_json()
 

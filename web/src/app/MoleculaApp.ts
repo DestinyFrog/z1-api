@@ -67,7 +67,7 @@ class MoleculaApp extends App {
 				this.svg_content.innerHTML = svg
 
 				const svg_el: SVGElement = this.svg_content.children[0] as SVGElement
-				const { x, y, width, height } = (svg_el as any).viewBox.baseVal
+				const { width, height } = (svg_el as any).viewBox.baseVal
 				const mut = 1.2
 				
 				if (width > height) {

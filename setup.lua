@@ -35,7 +35,7 @@ local names = {
 for k, name in ipairs(names) do
 	local stmt = assert( db:prepare("INSERT INTO molecula (uid, name, z1) VALUES (:uid, :name, :z1)") )
 
-	local file = io.open("./z1/".. name ..".z1", "r")
+	local file = io.open("./z1/examples/".. name ..".z1", "r")
 	if file == nil then
 		print(name.." not found")
 		os.exit(0)

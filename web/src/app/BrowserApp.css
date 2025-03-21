@@ -1,8 +1,12 @@
 
+.browser-header {
+	padding: 4px;
+}
+
 .browser-input {
 	color: black;
-	/* border: 1px solid white; */
 	border: 0;
+	width: 100%;
 	padding: 4px;
 	outline: none;
 	color: white;
@@ -12,13 +16,15 @@
 
 .recomendation {
 	list-style: none;
-	max-height: 200px;
+	height: 200px;
+	width: 200px;
 	overflow-y: scroll;
 }
 
 .recomendation li {
 	font-size: 14px;
 	padding: 3px;
+	margin: 3px;
 	border-radius: 5px;
 }
 

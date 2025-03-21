@@ -1,5 +1,5 @@
 
-export const LINK = 'http://localhost:3000'
+export const LINK = 'http://localhost:3000/api'
 
 export interface Vec2 {
 	x:number,

@@ -24,6 +24,8 @@ RUN apt-get update \
         python3 \
         python3-pip \
         python3.12-venv \
+        nodejs \
+        npm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -53,6 +55,11 @@ COPY setup.lua .
 
 RUN lua setup.lua
 RUN rm -r z1
+
+COPY web ./web
+COPY package.json .
+RUN npm install
+RUN npm run build
 
 # Setup python
 COPY requirements.txt .
