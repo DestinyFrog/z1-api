@@ -58,8 +58,9 @@ RUN rm -r z1
 
 COPY web ./web
 COPY package.json .
-RUN npm install
-RUN npm run build
+RUN npm install -g yarn \
+    yarn \
+    yarn build
 
 # Setup python
 COPY requirements.txt .
