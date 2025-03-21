@@ -1,0 +1,9 @@
+
+.svg-background {
+	border: 2px solid black;
+	border-radius: 4px;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

@@ -1,0 +1,62 @@
+
+.app {
+	position: fixed;
+	border-radius: 6px;
+	border: 2px solid white;
+	outline: none;
+	overflow: hidden;
+
+	background-color: #444;
+	display: flex;
+	flex-direction: column;
+}
+
+.app-header {
+	border-bottom: 2px solid white;
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 4px 8px;
+
+	user-select: none;
+	background-color: #222;
+}
+
+.app-header .title {
+	font-size: 14px;
+	cursor: default;
+}
+
+.app-header .button-close {
+	width: 12px;
+	height: 12px;
+	background-color: red;
+	border: 2px solid white;
+	border-radius: 50%;
+	margin-left: 6px;
+}
+
+.app-content {
+	padding: 6px;
+}
+
+.app-footer {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.app-footer button {
+	border: 1px solid white;
+	border-radius: 4px;
+	color: white;
+	width: 100%;
+	padding: 2px 4px;
+	margin: 6px;
+	margin-top: 0;
+	background-color: crimson;
+}

@@ -1,0 +1,64 @@
+
+.browser-input {
+	color: black;
+	/* border: 1px solid white; */
+	border: 0;
+	padding: 4px;
+	outline: none;
+	color: white;
+	background-color: #333;
+	border-radius: 10px;
+}
+
+.recomendation {
+	list-style: none;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.recomendation li {
+	font-size: 14px;
+	padding: 3px;
+	border-radius: 5px;
+}
+
+.recomendation li:hover {
+	background-color: #222;
+}
+
+.search-button {
+	background-color: #333;
+	border-radius: 10px;
+	margin-left: 5px;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.div-search {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}

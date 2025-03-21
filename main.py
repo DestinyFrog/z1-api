@@ -1,9 +1,11 @@
 from flask import Flask, make_response, request, jsonify
+from flask_cors import CORS
 import subprocess
 import sqlite3
 import uuid
 
 app = Flask(__name__)
+CORS(app)
 
 def get_conn():
     return sqlite3.connect('z1.sqlite3')
