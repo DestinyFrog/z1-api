@@ -17,25 +17,23 @@ db:exec[[
 	);
 ]]
 
-local names = {
-	"água",
-	"amonio",
-	"benzeno",
-	"bicarbonato_de_sodio",
-	"bicarbonato",
-	"cafeina",
-	"capsaicina",
-	"dioxido_de_enxofre",
-	"oxido_nitroso",
-	"teobromina",
-	"teofilina",
-	"xantina"
-}
+names = {}
+
+local comando = string.format('ls "%s"', "./z1/examples")
+local handle = io.popen(comando)
+if handle then
+	for nomeArquivo in handle:lines() do
+		table.insert(names, nomeArquivo)
+	end
+	handle:close()
+else
+	print("Erro ao acessar a pasta.")
+end
 
 for k, name in ipairs(names) do
 	local stmt = assert( db:prepare("INSERT INTO molecula (uid, name, z1) VALUES (:uid, :name, :z1)") )
 
-	local file = io.open("./z1/examples/".. name ..".z1", "r")
+	local file = io.open("./z1/examples/".. name, "r")
 	if file == nil then
 		print(name.." not found")
 		os.exit(0)
@@ -43,9 +41,11 @@ for k, name in ipairs(names) do
 	local content = file:read("*a")
 	file:close()
 
+	local rname = name:gsub(".z1", "")
+
 	stmt:bind_names {
 		uid = uuid.v4(),
-		name = name,
+		name = rname[1],
 		z1 = content
 	}
 
