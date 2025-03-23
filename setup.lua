@@ -45,7 +45,7 @@ for k, name in ipairs(names) do
 
 	stmt:bind_names {
 		uid = uuid.v4(),
-		name = rname[1],
+		name = rname,
 		z1 = content
 	}
 
