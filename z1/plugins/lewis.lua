@@ -89,5 +89,4 @@ for _, ligation in ipairs(ligations) do
 	::continue::
 end
 
-local svg_content = svg:build(width, height)
-print(svg_content)
+svg_content = svg:build(width, height)

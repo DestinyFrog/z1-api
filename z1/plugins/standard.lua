@@ -1,3 +1,5 @@
+require "z1.config"
+
 local min_x = 0
 local min_y = 0
 local max_x = 0
@@ -59,7 +61,7 @@ for _, ligation in ipairs(ligations) do
     local bx = center_x + to_atom["x"]
     local by = center_y + to_atom["y"]
 
-    local angles = waves[ ligation["eletrons"] ]
+    local angles = WAVES[ ligation["eletrons"] ]
 
     local a_angle = math.atan((by - ay), (bx - ax))
     local b_angle = math.pi + a_angle
@@ -79,5 +81,4 @@ for _, ligation in ipairs(ligations) do
 	::continue::
 end
 
-local svg_content = svg:build(width, height)
-print(svg_content)
+svg_content = svg:build(width, height)

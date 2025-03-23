@@ -98,7 +98,7 @@ for _, ligation in ipairs(ligations) do
     local bx = center_x + to_atom["x"]
     local by = center_y + to_atom["y"]
 
-    local angles = waves[ ligation["eletrons"] ]
+    local angles = WAVES[ ligation["eletrons"] ]
 
     local a_angle = math.atan((by - ay), (bx - ax))
     local b_angle = math.pi + a_angle
@@ -133,5 +133,4 @@ for _, ligation in ipairs(ligations) do
     ::continue::
 end
 
-local svg_content = svg:build(width, height)
-print(svg_content)
+svg_content = svg:build(width, height)

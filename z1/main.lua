@@ -1,11 +1,17 @@
-#!/home/calisto/.asdf/shims/lua
-
 require "z1.tools.svg"
 require "z1.sectioner"
+local sqlite3 = require "lsqlite3"
 
-local f = io.open(arg[2], "r")
-local content = f:read("*a")
-f:close()
+local uid = arg[2]
+local db = sqlite3.open("z1.sqlite3")
+
+
+
+local stmt = assert( db:prepare("SELECT z1 FROM molecula WHERE uid = ?") )
+stmt:bind_values(uid)
+stmt:step()
+local content = stmt:get_uvalues()
+stmt:finalize()
 
 local hadled_sections, err = HandleSections(content)
 if err ~= nil then
@@ -50,6 +56,4 @@ calc_atoms_position(1)
 local export_type = arg[1]
 require("z1.plugins." .. export_type)
 
-local f = io.open("out.svg", "w")
-local content = f:write(svg_content)
-f:close()
+print(svg_content)
