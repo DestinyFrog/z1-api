@@ -69,7 +69,7 @@ def search_one_molecula(term:str):
 @app.route("/api/<uuid:uid>/svg", methods=["GET"])
 def get_svg(uid):
     mode = request.args.get("mode") or "standard"
-    result = subprocess.run(["lua", "z1/z1.lua", mode, str(uid)], capture_output=True, text=True)
+    result = subprocess.run(["lua", "z1/main.lua", mode, str(uid)], capture_output=True, text=True)
 
     return_code = result.returncode
 
