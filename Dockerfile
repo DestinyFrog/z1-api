@@ -58,6 +58,7 @@ RUN rm -r z1
 
 COPY web ./web
 COPY package.json .
+COPY vite.config.js .
 RUN npm install -g yarn \
     yarn \
     yarn build
