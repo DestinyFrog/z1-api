@@ -12,7 +12,7 @@ class BrowserApp extends App {
 	private ol_recomendation: HTMLUListElement
 
 	constructor() {
-		super("browser")
+		super("browser", "Navegador")
 
 		this.header = document.createElement('header')
 		this.header.className = 'browser-header'

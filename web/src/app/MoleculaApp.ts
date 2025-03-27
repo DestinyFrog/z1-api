@@ -61,7 +61,7 @@ class MoleculaApp extends App {
 	}
 
 	loadSvg() {
-		fetch(`${LINK}/${this.uid}/svg?mode=${this.mode}`)
+		fetch(`${LINK}/${this.uid}/molecula/svg?mode=${this.mode}`)
 			.then(res => res.text())
 			.then(svg => {
 				this.svg_content.innerHTML = svg

@@ -1,0 +1,42 @@
+
+.main-content {
+	width: 100%;
+	min-width: 100px;
+	min-height: 100px;
+}
+
+.atomic-number {
+	font-size: 14px;
+}
+
+.symbol {
+	font-size: 32px;
+	font-weight: bolder;
+	text-align: center;
+	padding: 8px 0px;
+}
+
+.name {
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+}
+
+.atomic-mass {
+	font-size: 14px;
+	text-align: center;
+}
+
+.layer {
+	width: 10px;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.layer li {
+	width: 100%;
+	font-size: 10px;
+	text-align: center;
+}

@@ -1,0 +1,13 @@
+
+.periodic-table {
+	display: grid;
+}
+
+.periodic-table .element {
+	aspect-ratio: 1/1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid white;
+	padding: 3px;
+}
