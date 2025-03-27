@@ -1,21 +1,9 @@
 local sqlite3 = require "lsqlite3"
 local uuid = require "uuid"
 
--- lsqlite3
--- uuid
-
 uuid.set_rng(uuid.rng.urandom())
 
 local db = sqlite3.open("z1.sqlite3")
-
-db:exec[[
-	CREATE TABLE molecula (
-		id INTEGER PRIMARY KEY,
-		uid TEXT UNIQUE,
-		name TEXT,
-		z1 TEXT
-	);
-]]
 
 names = {}
 
@@ -39,6 +27,10 @@ for k, name in ipairs(names) do
 		os.exit(0)
 	end
 	local content = file:read("*a")
+
+	local tags = file:read()
+	local organic = tags
+
 	file:close()
 
 	local rname = name:gsub(".z1", "")
@@ -46,7 +38,8 @@ for k, name in ipairs(names) do
 	stmt:bind_names {
 		uid = uuid.v4(),
 		name = rname,
-		z1 = content
+		z1 = content,
+		organic = organic,
 	}
 
 	stmt:step()
