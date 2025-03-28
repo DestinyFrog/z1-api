@@ -19,7 +19,7 @@ else
 end
 
 for k, name in ipairs(names) do
-	local stmt = assert( db:prepare("INSERT INTO molecula (uid, name, z1) VALUES (:uid, :name, :z1)") )
+	local stmt = assert( db:prepare("INSERT INTO molecula (uid, name, z1, organic) VALUES (:uid, :name, :z1, :organic)") )
 
 	local file = io.open("./z1/examples/".. name, "r")
 	if file == nil then
