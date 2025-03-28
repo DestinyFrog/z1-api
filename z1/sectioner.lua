@@ -116,8 +116,14 @@ function HandleSectionAtoms(section, ligations)
 			if k > start_ligation_index then
 				local lig = tonumber(v)
 				if lig == nil then
-					return nil, Error.new {
+					return nil, Error:new {
 						message = ("ligation '" .. lig .. "' invalid")
+					}
+				end
+
+				if ligations[lig] == nil then
+					return nil, Error:new {
+						message = "ligation missing for atom (" ..symbol.. ": " ..v.. ")" 
 					}
 				end
 

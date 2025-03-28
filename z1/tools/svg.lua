@@ -1,3 +1,4 @@
+require "z1.tools.error"
 
 Svg = {
     standard_css = 'z1.css',
@@ -37,7 +38,9 @@ end
 function Svg:build(width, height)
     local css_file = io.open(self.standard_css, "r")
 	if css_file == nil then
-		return handle_err("Template 'z1.css' não encontrado")
+		return nil, Error:new {
+            ["message"] = "Template 'z1.css' não encontrado",
+        }
 	end
 
     local css = css_file:read("*a")
@@ -46,12 +49,14 @@ function Svg:build(width, height)
 
     local svg_template_file = io.open(self.standard_svg_template, "r")
 	if svg_template_file == nil then
-		return handle_err("Template 'z1.temp.svg' não encontrado")
+        return nil, Error:new {
+            ["message"] = "Template 'z1.temp.svg' não encontrado",
+        }
 	end
 
     local svg_template = svg_template_file:read("*a")
     io.close(svg_template_file)
 
     local svg = string.format(svg_template, width, height, css, self.content)
-    return svg
+    return svg, nil
 end
