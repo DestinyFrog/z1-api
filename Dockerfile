@@ -47,6 +47,7 @@ RUN wget https://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz \
     && make install \
     && cd .. && rm -rf luarocks-3.11.1*
 
+COPY up.sql .
 RUN sqlite3 z1.sqlite3 < up.sql
 
 # Setup lua
