@@ -21,6 +21,7 @@ RUN apt-get update \
         wget \
         curl \
         libsqlite3-dev \
+        sqlite3 \
         python3 \
         python3-pip \
         python3.12-venv \
@@ -45,6 +46,8 @@ RUN wget https://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz \
     && make build \
     && make install \
     && cd .. && rm -rf luarocks-3.11.1*
+
+RUN sqlite3 z1.sqlite3 < up.sql
 
 # Setup lua
 RUN luarocks install lsqlite3 && \
