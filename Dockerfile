@@ -65,8 +65,8 @@ COPY package.json .
 COPY vite.config.js .
 COPY yarn.lock .
 RUN npm install -g yarn \
-    yarn \
-    yarn build
+    && yarn \
+    && yarn build
 
 # Setup python
 COPY requirements.txt .
