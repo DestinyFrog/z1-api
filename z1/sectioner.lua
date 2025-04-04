@@ -1,11 +1,17 @@
 require "z1.tools.error"
-require "z1.config"
+require "z1.configuration"
 require "z1.tools.util"
+
+ELETRONS_TYPES = {
+	["-"] = 1,
+	["="] = 2,
+	["%"] = 3
+}
 
 function HandlePattern(params)
 	local pattern, repet = table.unpack(params)
 
-	local pattern_file = io.open("./z1/pattern/" .. pattern .. ".pre.z1", "r")
+	local pattern_file = io.open(PATTERN_FOLDER .. "/" .. pattern .. PATTERN_EXT, "r")
 	if pattern_file == nil then
         return nil, Error.new {
 			["message"] = "pattern ["..pattern.."] not found"

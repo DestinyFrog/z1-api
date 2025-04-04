@@ -1,9 +1,9 @@
 import './ElementApp.css'
 
-import App from "../widget/app"
 import { CategoryToColor } from '../util'
+import MixerApp from '../widget/mixerApp'
 
-class ElementApp extends App {
+class ElementApp extends MixerApp {
 	public element
 
 	private main_content: HTMLDivElement
@@ -14,7 +14,7 @@ class ElementApp extends App {
 	private ul_layer: HTMLUListElement
 
 	constructor(element:any) {
-		super(element.oficial_name, "element")
+		super(element.oficial_name)
 		this.element = element
 
 		this.div_content.style.display = 'flex'
@@ -42,6 +42,8 @@ class ElementApp extends App {
 		this.ul_layer = document.createElement('ul')
 		this.ul_layer.className = 'layer'
 		this.appendToContent(this.ul_layer)
+
+		this.title = this.element.oficial_name
 	}
 
 	protected Render(): void {
@@ -57,6 +59,10 @@ class ElementApp extends App {
 			li_layer.textContent = layer.toString()
 			this.ul_layer.appendChild(li_layer)
 		})
+	}
+
+	protected getTerm(): string[] {
+		return [ this.element.symbol ]
 	}
 }
 

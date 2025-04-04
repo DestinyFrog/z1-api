@@ -20,6 +20,8 @@ class App {
 	private before_drag_position: Vec2 = { x: 0, y: 0 }
 	private startPosition : Vec2 = { x: 10, y: 10 }
 
+	private is_dragging = false
+
 	constructor(tag:string, title = "app") {
 		this.id = generateRandomString()
 		this.tag = tag
@@ -130,6 +132,8 @@ class App {
 			const mouseMove = (ev:MouseEvent) => {
 				this.on_move()
 
+				this.is_dragging = true
+
 				// if (ev.clientX > 0 && ev.clientX < document.body.clientWidth) {
 					this.drag_position.x = this.before_drag_position.x - ev.clientX
 					this.before_drag_position.x = ev.clientX
@@ -145,7 +149,8 @@ class App {
 
 			document.addEventListener('mousemove', mouseMove)
 			document.addEventListener('mouseup', _ => {
-				this.on_drop()
+				if (this.is_dragging) this.on_drop()
+				this.is_dragging = false
 				document.removeEventListener('mousemove', mouseMove)
 			})
 		})

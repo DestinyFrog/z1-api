@@ -148,5 +148,6 @@ CREATE TABLE molecula (
     `uid` TEXT UNIQUE,
     `name` TEXT,
 	`organic` TEXT DEFAULT 'inorganic',
-    `z1` TEXT
+    `z1` TEXT,
+	`term` TEXT
 );

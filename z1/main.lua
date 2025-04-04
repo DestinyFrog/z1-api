@@ -1,11 +1,10 @@
 require "z1.tools.svg"
 require "z1.sectioner"
+require "z1.configuration"
 local sqlite3 = require "lsqlite3"
 
 local uid = arg[2]
-local db = sqlite3.open("z1.sqlite3")
-
-
+local db = sqlite3.open(DATABASE)
 
 local stmt = assert( db:prepare("SELECT z1 FROM molecula WHERE uid = ?") )
 stmt:bind_values(uid)
@@ -21,39 +20,37 @@ end
 
 tags, ligations, atoms = table.unpack(hadled_sections)
 
-local already = {}
+local export_type = arg[1]
 
-local function calc_atoms_position(idx, dad_atom, ligation)
-	for k, v in ipairs(already) do
-		if idx == v then
-			return
-		end
-	end
+local plugin = nil
 
-	local x = 0
-	local y = 0
-
-	if dad_atom ~= nil then
-		local angle = ligation["angle"]
-		local angle_rad = math.pi * angle / 180
-		x = dad_atom["x"] + math.cos(angle_rad) * LIGATION_SIZE
-		y = dad_atom["y"] + math.sin(angle_rad) * LIGATION_SIZE
-	end
-
-	atoms[idx]["x"] = x
-	atoms[idx]["y"] = y
-	table.insert(already, idx)
-
-	for _, lig in ipairs(ligations) do
-		if lig["atoms"][1] == idx then
-			calc_atoms_position(lig["atoms"][2], atoms[idx], lig)
-		end
-	end
+if export_type == "organic" then
+	require("z1.plugins.organic")
+	plugin = OrganicPlugin:new {
+		["tags"] = tags,
+		["atoms"] = atoms,
+		["ligations"] = ligations
+	}
+elseif export_type == "lewis" then
+	require("z1.plugins.lewis")
+	plugin = LewisPlugin:new {
+		["tags"] = tags,
+		["atoms"] = atoms,
+		["ligations"] = ligations
+	}
+else
+	require("z1.plugins.standard")
+	plugin = StandardPlugin:new {
+		["tags"] = tags,
+		["atoms"] = atoms,
+		["ligations"] = ligations
+	}
 end
 
-calc_atoms_position(1)
-
-local export_type = arg[1]
-require("z1.plugins." .. export_type)
+local svg_content, err = plugin:build()
+if err ~= nil then
+	err:print()
+	os.exit(1)
+end
 
 print(svg_content)

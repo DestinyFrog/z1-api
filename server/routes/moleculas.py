@@ -6,13 +6,15 @@ from db.conn import get_conn
 
 moleculaRoute = Blueprint('molecula', __name__, url_prefix='/molecula')
 
-fields = "uid, name"
+fields = "uid, name, term, organic"
 
 def build_molecula(obj):
-    (uid, name) = obj
+    (uid, name, term, organic) = obj
     return {
         "uid": uid,
-        "name": name
+        "name": name,
+        "term": term,
+        "organic": organic == "organic"
     }
 
 @moleculaRoute.route("/", methods=["GET"])
@@ -58,10 +60,26 @@ def search_one_molecula(term:str):
     conn.close()
     return jsonify(moleculas)
 
+@moleculaRoute.route("/mix/<string:term>", methods=["GET"])
+def mix(term:str):
+    conn = get_conn()
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT {fields} FROM molecula WHERE term = ?", [ term ])
+    
+    obj = cursor.fetchone()
+    if obj is None:
+        return make_response("", 404)
+
+    molecula = build_molecula(obj)
+
+    conn.commit()
+    conn.close()
+    return jsonify(molecula)
+
 @moleculaRoute.route("/<uuid:uid>/svg", methods=["GET"])
 def get_svg(uid):
     mode = request.args.get("mode") or "standard"
-    result = subprocess.run(["lua", "/home/calisto/cat/me/z1-api/z1/main.lua", mode, str(uid)], capture_output=True, text=True)
+    result = subprocess.run(["lua", "./z1/main.lua", mode, str(uid)], capture_output=True, text=True)
 
     return_code = result.returncode
 

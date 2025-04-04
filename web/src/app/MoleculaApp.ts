@@ -1,11 +1,14 @@
 import './MoleculaApp.css'
 
-import App from "../widget/app"
 import { LINK } from '../util'
-import { MoleculaModel, SvgModes } from '../models'
+import { SvgModes } from '../models'
+import MixerApp from '../widget/mixerApp'
 
-class MoleculaApp extends App {
+class MoleculaApp extends MixerApp {
 	private uid: string
+	private term: string = ""
+	private organic = false
+
 	private _mode: SvgModes = SvgModes.STANDARD
 
 	private svg_content: HTMLDivElement
@@ -37,8 +40,6 @@ class MoleculaApp extends App {
 		this.appendToContent(this.svg_content)
 
 		this.appendToFooter(this.standard_button)
-		this.appendToFooter(this.organic_button)
-		this.appendToFooter(this.lewis_button)
 
 		this.getInfo()
 		this.loadSvg()
@@ -54,31 +55,35 @@ class MoleculaApp extends App {
 	}
 
 	getInfo() {
-		fetch(`${LINK}/${this.uid}`)
+		fetch(`${LINK}/molecula/${this.uid}`)
 			.then(res => res.json())
-			.then(({ name }: MoleculaModel) => this.title = name)
+			.then(({ name, term, organic }: any) => {
+				this.title = name
+				this.organic = organic
+				this.term = term
+
+				if (this.organic)
+					this.appendToFooter(this.organic_button)
+			})
 			.catch(console.error)
 	}
 
 	loadSvg() {
-		fetch(`${LINK}/${this.uid}/molecula/svg?mode=${this.mode}`)
+		fetch(`${LINK}/molecula/${this.uid}/svg?mode=${this.mode}`)
 			.then(res => res.text())
 			.then(svg => {
 				this.svg_content.innerHTML = svg
-
 				const svg_el: SVGElement = this.svg_content.children[0] as SVGElement
 				const { width, height } = (svg_el as any).viewBox.baseVal
-				const mut = 1.2
 				
-				if (width > height) {
-					svg_el.style.width = (width * mut).toString() + 'px'
-				}
-				else {
-					svg_el.style.height = (height * mut).toString() + 'px'
-				}
-
+				if (width > height)
+					this.svg_content.style.width = `${width*1.5}px`
 			})
 			.catch(console.error)
+	}
+
+	protected getTerm(): string[] {
+		return this.term.split(/([A-Z][a-z]?)/)
 	}
 }
 

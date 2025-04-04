@@ -38,7 +38,7 @@ class BrowserApp extends App {
 
 		this.ol_recomendation.innerHTML = ''
 
-		fetch(`${LINK}/search/${term}`)
+		fetch(`${LINK}/molecula/search/${term}`)
 			.then(res => res.json())
 			.then((recomendations:MoleculaModel[]) => {
 				this.ol_recomendation.innerHTML = ''

@@ -1,8 +1,7 @@
 require "z1.tools.error"
+require "z1.configuration"
 
 Svg = {
-    standard_css = 'z1.css',
-    standard_svg_template = 'z1.temp.svg',
     content = ""
 }
 
@@ -14,29 +13,29 @@ function Svg:new(o)
 end
 
 function Svg:line(ax, ay, bx, by, className)
-    if className == nil then className = 'ligation' end
+    if className == nil then className = 'svg-ligation' end
 
     local s = string.format('<line class="%s" x1="%g" y1="%g" x2="%g" y2="%g"></line>', className, ax, ay, bx, by)
     self.content = self.content .. s
 end
 
 function Svg:circle(x, y, r)
-    local s = string.format('<circle class="eletrons" cx="%g" cy="%g" r="%g"></circle>', x, y, r)
+    local s = string.format('<circle class="svg-eletrons" cx="%g" cy="%g" r="%g"></circle>', x, y, r)
     self.content = self.content .. s
 end
 
 function Svg:text(symbol, x, y)
-    local s = string.format('<text class="element element-%s" x="%g" y="%g">%s</text>', symbol, x, y, symbol)
+    local s = string.format('<text class="svg-element svg-element-%s" x="%g" y="%g">%s</text>', symbol, x, y, symbol)
     self.content = self.content .. s
 end
 
 function Svg:subtext(symbol, x, y)
-    local s = string.format('<circle class="element-charge-border" cx="%g" cy="%g"/><text class="element-charge" x="%g" y="%g">%s</text>', x, y, x, y, symbol)
+    local s = string.format('<circle class="svg-element-charge-border" cx="%g" cy="%g"/><text class="svg-element-charge" x="%g" y="%g">%s</text>', x, y, x, y, symbol)
     self.content = self.content .. s
 end
 
 function Svg:build(width, height)
-    local css_file = io.open(self.standard_css, "r")
+    local css_file = io.open(Z1_CSS, "r")
 	if css_file == nil then
 		return nil, Error:new {
             ["message"] = "Template 'z1.css' não encontrado",
@@ -47,7 +46,7 @@ function Svg:build(width, height)
     css = css:gsub("[\n|\t]","")
     io.close(css_file)
 
-    local svg_template_file = io.open(self.standard_svg_template, "r")
+    local svg_template_file = io.open(Z1_TEMP_SVG, "r")
 	if svg_template_file == nil then
         return nil, Error:new {
             ["message"] = "Template 'z1.temp.svg' não encontrado",

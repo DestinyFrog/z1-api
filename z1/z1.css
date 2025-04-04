@@ -1,5 +1,5 @@
 
-.element {
+.svg-element {
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 10px;
 	fill: black;
@@ -8,14 +8,14 @@
 	text-anchor: middle;
 }
 
-.element-charge-border {
+.svg-element-charge-border {
 	stroke: black;
 	stroke-width: 0.3px;
 	fill: white;
 	r: 2.5px;
 }
 
-.element-charge {
+.svg-element-charge {
 	font-family: 'Courier New', Courier, monospace;
 	font-size: 3px;
 	fill: black;
@@ -23,39 +23,39 @@
 	text-anchor: middle;
 }
 
-.ligation {
+.svg-ligation {
 	stroke-width: 1px;
 	stroke: black;
 }
 
-.element-H {
+.svg-element-H {
 	fill: #bbbbbb;
 }
 
-.element-S {
+.svg-element-S {
 	fill: #f7cd29;
 }
 
-.element-Na {
+.svg-element-Na {
 	fill: #f7d653;
 }
 
-.element-Cl {
+.svg-element-Cl {
 	fill: #21d122;
 }
 
-.element-F {
+.svg-element-F {
 	fill: #aed482;
 }
 
-.element-N {
+.svg-element-N {
 	fill: #7878fa;
 }
 
-.element-O {
+.svg-element-O {
 	fill: #eb3738;
 }
 
-.element-C {
+.svg-element-C {
 	fill: #000000;
 }

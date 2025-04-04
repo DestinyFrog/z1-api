@@ -8,4 +8,5 @@ export enum SvgModes {
 export interface MoleculaModel {
 	name: string
 	uid: string
+	term: string
 }
