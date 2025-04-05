@@ -62,11 +62,9 @@ RUN rm -r z1
 
 COPY web ./web
 COPY package.json .
+COPY package-lock.json .
 COPY vite.config.js .
-COPY yarn.lock .
-RUN npm install -g yarn \
-    yarn \
-    yarn build
+RUN npm install && npm run build
 
 # Setup python
 COPY requirements.txt .
